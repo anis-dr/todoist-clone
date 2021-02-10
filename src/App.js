@@ -1,22 +1,21 @@
-function App() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
-}
+import { Header } from "./components/layout/Header";
+import { Content } from "./components/layout/Content.";
+import { ProjectsProvider, SelectedProjectProvider } from "./context";
+import { useState } from "react";
 
-export default App;
+export const App = ({ darkModeDefault = false }) => {
+  const [darkMode, setDarkMode] = useState(darkModeDefault);
+  return (
+    <SelectedProjectProvider>
+      <ProjectsProvider>
+        <main
+          data-testid="application"
+          className={darkMode ? "darkmode" : undefined}
+        >
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Content />
+        </main>
+      </ProjectsProvider>
+    </SelectedProjectProvider>
+  );
+};
